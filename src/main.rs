@@ -93,7 +93,7 @@ fn main() -> std::io::Result<()> {
 
         user_input = user_input.trim_end().trim_end().to_string();
 
-        let command = remove_more_space(&user_input);
+        let command = remove_extra_space(&user_input);
 
         if user_input == "exit" {
             break;
@@ -168,7 +168,7 @@ fn exec_simple_on_backend(command : String, env : &HashMap<String, String>) -> s
 fn exec_with_pipe_on_backend(command : String, env : &HashMap<String, String>)  -> std::process::Child{
     let commands : Vec<&str> = command.split("|").collect();
             
-    let command_first = remove_more_space(commands[0]);
+    let command_first = remove_extra_space(commands[0]);
     let args_first : Vec<&str> = command_first.split(" ").collect();
 
     let mut child_process = 
@@ -186,7 +186,7 @@ fn exec_with_pipe_on_backend(command : String, env : &HashMap<String, String>)  
 
     for index in 1 .. (commands.len() - 1) {
 
-        let command_center = remove_more_space(commands[index]);
+        let command_center = remove_extra_space(commands[index]);
 
         let args_center : Vec<&str> = command_center.split(" ").collect();
 
@@ -205,7 +205,7 @@ fn exec_with_pipe_on_backend(command : String, env : &HashMap<String, String>)  
 
     }
 
-    let command_last = remove_more_space(commands[commands.len() - 1]);
+    let command_last = remove_extra_space(commands[commands.len() - 1]);
 
     let args_last : Vec<&str> = command_last.split(" ").collect();
 
@@ -253,7 +253,7 @@ fn exec_simple(command : String, env : &HashMap<String, String>){ //Ex3
 fn exec_with_pipe(command : String, env : &HashMap<String, String>){ //Ex4
     let commands : Vec<&str> = command.split("|").collect();
             
-            let command_first = remove_more_space(commands[0]);
+            let command_first = remove_extra_space(commands[0]);
             let args_first : Vec<&str> = command_first.split(" ").collect();
 
             let mut child_process = 
@@ -271,7 +271,7 @@ fn exec_with_pipe(command : String, env : &HashMap<String, String>){ //Ex4
 
             for index in 1 .. (commands.len() - 1) {
 
-                let command_center = remove_more_space(commands[index]);
+                let command_center = remove_extra_space(commands[index]);
 
                 let args_center : Vec<&str> = command_center.split(" ").collect();
 
@@ -290,7 +290,7 @@ fn exec_with_pipe(command : String, env : &HashMap<String, String>){ //Ex4
 
             }
 
-            let command_last = remove_more_space(commands[commands.len() - 1]);
+            let command_last = remove_extra_space(commands[commands.len() - 1]);
 
             let args_last : Vec<&str> = command_last.split(" ").collect();
 
@@ -312,7 +312,7 @@ fn exec_with_pipe(command : String, env : &HashMap<String, String>){ //Ex4
             }
 }
 
-/// remove the more space with the commande
+/// remove the extra space with the commande
 /// 
 /// # Examples
 /// 
@@ -322,7 +322,7 @@ fn exec_with_pipe(command : String, env : &HashMap<String, String>){ //Ex4
 /// 
 /// assert_eq!("dir | findstr src".to_string(), ret);
 /// ```
-fn remove_more_space(s : &str) -> String{
+fn remove_extra_space(s : &str) -> String{
     let mut index = 0;
     let mut ret : String = "".to_string();
     for i in s.chars(){
